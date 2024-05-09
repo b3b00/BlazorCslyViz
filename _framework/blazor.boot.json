@@ -7,7 +7,7 @@
   "linkerEnabled": true,
   "resources": {
     "assembly": {
-      "BlazorVizView.dll": "sha256-l4B1XP1\/XlWKvwsr98TFyw\/QsCWNA35g\/3gFR4WC4Q8=",
+      "BlazorVizView.dll": "sha256-IVFf6owwWNL6CSIzJBg8M4XNq7zhaYJcHyfnhNsJFho=",
       "csly-cli-api.dll": "sha256-iXo2RMppJrW06FddwU+HpYShLtJisF\/rFZNOeiH7piE=",
       "csly-cli-builder.dll": "sha256-Js4WVx74dtJrUQyPiK7WN4viufWFc3GolDLsK1j\/3Ds=",
       "csly-cli-model.dll": "sha256-zpU4s6hMCjG+hU6xcnXJdY44i9cVj0hoIELmx+6sb9M=",
