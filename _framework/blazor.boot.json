@@ -7,7 +7,7 @@
   "linkerEnabled": true,
   "resources": {
     "assembly": {
-      "BlazorVizView.dll": "sha256-IVFf6owwWNL6CSIzJBg8M4XNq7zhaYJcHyfnhNsJFho=",
+      "BlazorVizView.dll": "sha256-O\/3ZwQXd+VGah6Q+fVxLheKOb6TlkxZGF8+ehRGJExQ=",
       "csly-cli-api.dll": "sha256-iXo2RMppJrW06FddwU+HpYShLtJisF\/rFZNOeiH7piE=",
       "csly-cli-builder.dll": "sha256-Js4WVx74dtJrUQyPiK7WN4viufWFc3GolDLsK1j\/3Ds=",
       "csly-cli-model.dll": "sha256-zpU4s6hMCjG+hU6xcnXJdY44i9cVj0hoIELmx+6sb9M=",
@@ -28,7 +28,7 @@
       "Microsoft.JSInterop.dll": "sha256-O2v\/TEzGxRkJx2s8BIzjplzaBZGIjAEU8QLVvMi29Pk=",
       "Microsoft.JSInterop.WebAssembly.dll": "sha256-6yDYSBiy48fNaYJlqK10GSN72A6Vsu3i\/6v3Lq7kL2E=",
       "Newtonsoft.Json.dll": "sha256-SBbEJ29XXk2FuAYzoN8urfKUlv4AvcM814Q+YTc73g4=",
-      "sly.dll": "sha256-6xm+XM4iaGc7BcWvs58nxQG8yYjY0ihaOPphmuF2hvA=",
+      "sly.dll": "sha256-lrWKFBhADyw0FhqsOdntmAwRBue9EC8U5gH057q51cY=",
       "System.Collections.Concurrent.dll": "sha256-g2yvi\/BCajG49Eh9HSsQiHWe22Gl9oCpg\/+vtEgT\/OM=",
       "System.Collections.dll": "sha256-RnZfi8t+Ja\/3zRTDkMJYxm9FIRqBNX1ILJcaTa5TUDo=",
       "System.Collections.Immutable.dll": "sha256-a1gdELwO7ZFScezJPw9u5Ct0+rFTiXaprxNtK42WP9U=",
