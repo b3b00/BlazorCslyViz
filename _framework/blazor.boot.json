@@ -8,7 +8,7 @@
   "resources": {
     "assembly": {
       "BlazorMonaco.dll": "sha256-xOArzMB+kwVJgjamgppZOV7yaoeg4j8NCAt37vQ6njs=",
-      "BlazorVizView.dll": "sha256-JJmffGx64ZBLbWkYv9u30GDWKNGIG\/iueV57H0aeBFY=",
+      "BlazorVizView.dll": "sha256-An8bJa+gC4vJt64e81CfGKMbxTxaPHcVomyE\/Q8uHEc=",
       "csly-cli-api.dll": "sha256-iXo2RMppJrW06FddwU+HpYShLtJisF\/rFZNOeiH7piE=",
       "csly-cli-builder.dll": "sha256-Js4WVx74dtJrUQyPiK7WN4viufWFc3GolDLsK1j\/3Ds=",
       "csly-cli-model.dll": "sha256-zpU4s6hMCjG+hU6xcnXJdY44i9cVj0hoIELmx+6sb9M=",
