@@ -8,7 +8,7 @@
   "resources": {
     "assembly": {
       "BlazorDialog.dll": "sha256-dHy\/VIS\/iL0Zp4wrn+c7Gyt\/PV5pYcaloQHk6tFlnIE=",
-      "BlazorVizView.dll": "sha256-oAyKuOuTknOpzJdL4V4ryKJUPjN3MXcotFD4uULzQMk=",
+      "BlazorVizView.dll": "sha256-lCZ5E1FI10X4WAHTthP03rcP\/7CGoMqh\/tOexVZKCiM=",
       "csly-cli-api.dll": "sha256-1aIKgXqRIXu62EY+uMIIavS+8S6yoIOY9venqxKdgS0=",
       "csly-cli-builder.dll": "sha256-ESAS29eqXLLU493BaWxD3fTQoWCHxad7g2xt4Gi8ras=",
       "csly-cli-model.dll": "sha256-w7VayrNGy0PF+U18ta+VqO7yAyx8Bpcc2slPP2ofDf4=",
