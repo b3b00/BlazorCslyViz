@@ -8,11 +8,11 @@
   "resources": {
     "assembly": {
       "BlazorDialog.dll": "sha256-dHy\/VIS\/iL0Zp4wrn+c7Gyt\/PV5pYcaloQHk6tFlnIE=",
-      "BlazorVizView.dll": "sha256-twqWFQTfA1MVjRlZmfc28Gnh\/+NrMHHrUzG0\/CHfRrI=",
-      "csly-cli-api.dll": "sha256-UkEYGDBbnn9sOgsnZqioaeF9YjnLwDevieuw9+fxGvw=",
-      "csly-cli-builder.dll": "sha256-oRecbwvQ7kJs0dbpemQxaNFyFKr2EFAO\/lb\/3zOIPzE=",
-      "csly-cli-model.dll": "sha256-2sC4qHJUZsG6r69ddudlvlLjruV3dXfLal5rfWD3fIg=",
-      "csly-cli-parser.dll": "sha256-CUF3QgA2ZrBhMFhiEXGtpZCQMRPRQ2j7wZ65ziZV7dw=",
+      "BlazorVizView.dll": "sha256-MUJDGvaCNwnUI4XpF6nB+iIAfdJbGWzRzG0U040pW9s=",
+      "csly-cli-api.dll": "sha256-LNMrm9mpl0qOVsmW0bj2KVOzn7TE8Ti9ENvu0KNp9wE=",
+      "csly-cli-builder.dll": "sha256-QECtoe1dUBq8MG+1r4FgUMIuWvYEDPJMv5AfcGEN8S0=",
+      "csly-cli-model.dll": "sha256-pv9HQdyoP1MH\/BRrYZCURqxpOMqzwX9uF04kHJpBkHI=",
+      "csly-cli-parser.dll": "sha256-FZaFXuClVBcs1IrVwWp8pcvVHleZxHeiqOou5C0Mz\/U=",
       "Microsoft.AspNetCore.Components.dll": "sha256-OxikUCviFouuQw3C3apdDpsTlL0rXVngBRDK4RMgyIk=",
       "Microsoft.AspNetCore.Components.Web.dll": "sha256-jwWD63DXXSqcPFLoozfxPpBTrAnm3rkYowefmV6\/Mf4=",
       "Microsoft.AspNetCore.Components.WebAssembly.dll": "sha256-p91Oo9a7tAWu8KEztfIjUKrG003T+hfLqgURUUhVoSU=",
