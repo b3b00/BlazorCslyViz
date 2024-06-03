@@ -25,7 +25,7 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-2pH\/R2ng8GjgVqqc+WG6NyK8GajJwAmAciVgOvBnAAU=",
+      "hash": "sha256-aML9LtdSHz4XOO75hz5ZiVVpGKk\/4MbHYVmVJgo+zUA=",
       "url": "index.html"
     },
     {
@@ -569,5 +569,5 @@
       "url": "_content\/BlazorDialog\/styles.min.css"
     }
   ],
-  "version": "WPpQwTpS"
+  "version": "P0yTOr8J"
 };
