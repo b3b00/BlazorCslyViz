@@ -17,6 +17,10 @@
       "url": "favicon.ico"
     },
     {
+      "hash": "sha256-WW8eup1HEiQJ95kfOZelAWEQR6kwDZlVO1wqIATofPk=",
+      "url": "favicon.png"
+    },
+    {
       "hash": "sha256-DbpQaq68ZSb5IoPosBErM1QWBfsbTxpJqhU0REi6wP4=",
       "url": "icon-192.png"
     },
@@ -569,5 +573,5 @@
       "url": "_content\/BlazorDialog\/styles.min.css"
     }
   ],
-  "version": "P0yTOr8J"
+  "version": "HWMyZUPf"
 };
