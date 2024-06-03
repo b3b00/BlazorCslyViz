@@ -23,11 +23,7 @@
     {
       "hash": "sha256-oEo6d+KqX5fjxTiZk\/w9NB3Mi0+ycS5yLwCKwr4IkbA=",
       "url": "icon-512.png"
-    },
-    {
-      "hash": "sha256-2pH\/R2ng8GjgVqqc+WG6NyK8GajJwAmAciVgOvBnAAU=",
-      "url": "index.html"
-    },
+    }, 
     {
       "hash": "sha256-Ogqs510LFnekr9o7OLdpelaaAmNss9egQRTyzCqV2NQ=",
       "url": "js\/full.render.js"
