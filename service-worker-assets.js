@@ -9,7 +9,7 @@
       "url": "styles.min.css"
     },
     {
-      "hash": "sha256-8JVHE+uu8C72Z+f2siHyOvay4A28Mz9OFX3qEkvOwC4=",
+      "hash": "sha256-280lE1MhQIQQoK0A967YuWteASHorKpfFODomKKTDog=",
       "url": "css\/app.css"
     },
     {
@@ -21,7 +21,11 @@
       "url": "icon-192.png"
     },
     {
-      "hash": "sha256-iGOCXJb+zHD+NjvMBZpvC66zjqaitnNQ4B4mdh1RhJc=",
+      "hash": "sha256-oEo6d+KqX5fjxTiZk\/w9NB3Mi0+ycS5yLwCKwr4IkbA=",
+      "url": "icon-512.png"
+    },
+    {
+      "hash": "sha256-2pH\/R2ng8GjgVqqc+WG6NyK8GajJwAmAciVgOvBnAAU=",
       "url": "index.html"
     },
     {
@@ -39,6 +43,18 @@
     {
       "hash": "sha256-JtBoCb1KwOJfntFD6HsFxIRLkxY0o46izvj\/egemNdE=",
       "url": "js\/vizInterop.js"
+    },
+    {
+      "hash": "sha256-2iV1zaosrJLkMmXHtwLuQxxWrfcFNFcmNppXU+yVh2s=",
+      "url": "loader.js"
+    },
+    {
+      "hash": "sha256-Kibh5aQ3lD8lHly2BF8F5mq3ZXJhxka2ioqwBmviHK4=",
+      "url": "manifest.webmanifest"
+    },
+    {
+      "hash": "sha256-aGoGyMSgxHJ8YND+35Wi6ckoPkMXDZUzNqpAOSHLpgQ=",
+      "url": "spinner.svg"
     },
     {
       "hash": "sha256-gMMhXf930MHxSiJZcjP4DGT41x\/\/4UluuuaVRM2SZIk=",
@@ -553,5 +569,5 @@
       "url": "_content\/BlazorDialog\/styles.min.css"
     }
   ],
-  "version": "oZM\/tiVG"
+  "version": "aqyzCSLV"
 };
