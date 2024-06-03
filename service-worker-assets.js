@@ -53,7 +53,7 @@
       "url": "loader.js"
     },
     {
-      "hash": "sha256-Kibh5aQ3lD8lHly2BF8F5mq3ZXJhxka2ioqwBmviHK4=",
+      "hash": "sha256-+rRUjKHX43Y90PMeMoHQw5ioUAGHEKMFtAPq4xSnHkc=",
       "url": "manifest.webmanifest"
     },
     {
@@ -573,5 +573,5 @@
       "url": "_content\/BlazorDialog\/styles.min.css"
     }
   ],
-  "version": "6a986W+5"
+  "version": "d4yaCW2n"
 };

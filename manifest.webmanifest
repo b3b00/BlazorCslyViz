@@ -1,6 +1,6 @@
 {
-  "name": "pwasm",
-  "short_name": "pwasm",
+  "name": "CSLY viewer",
+  "short_name": "CSLY",
   "id": "./",
   "start_url": "./",
   "display": "standalone",
