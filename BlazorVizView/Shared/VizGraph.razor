@@ -32,6 +32,9 @@
         <button id="submitButton" @onclick="Render">
             Render
         </button>
+        <button id="submitButton" @onclick="Compile">
+            Compile
+        </button>
         <button id="submitButton" @onclick="Generate">
             Generate...
         </button>
@@ -259,6 +262,22 @@ parser ExprParser;
             }
         }
     }
+    
+    private async void Compile()
+    {
+        var compileResult = CslyProcessor.Compile(grammar);
+        if (compileResult.IsOK)
+        {
+            await AppendMessage("Model is OK");
+        }
+        else
+        {
+            foreach (var error in compileResult.Errors)
+            {
+                await AppendError(error);
+            }
+        }
+    }
 
     public async Task VizRender(string graph)
     {
@@ -268,6 +287,11 @@ parser ExprParser;
     public async Task AppendError(string errorMessage)
     {
         await JSRuntime.InvokeAsync<string>("appendError", errorMessage);
+    }
+    
+    public async Task AppendMessage(string message)
+    {
+        await JSRuntime.InvokeAsync<string>("appendMessage", message);
     }
 
 }

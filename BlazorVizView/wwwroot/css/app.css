@@ -182,3 +182,9 @@ a, .btn-link {
     background-color: darksalmon;
     color: black;
 }
+
+
+#graph message {
+    background-color: lawngreen;
+    color: black;
+}
