@@ -32,6 +32,8 @@ jobs:
       run: sed -i 's/<link href="manifest.webmanifest" rel="manifest" \/>/<link href="\/BlazorCslyViz\/manifest.webmanifest" rel="manifest" \/>/g' release/wwwroot/index.html
     - name: Change service-worker url in index.html from / to /BlazorCslyViz
       run: sed -i 's/\/service-worker.js/\/BlazorCslyViz\/service-worker.js/g' release/wwwroot/index.html  
+    - name: Change favicon url in index.html from / to /BlazorCslyViz
+      run: sed -i 's/href="favicon.png"/href="\/BlazorcslyViz\/favicon.png"/g' release/wwwroot/index.html  
     
     # copy index.html to 404.html to serve the same file when a file is not found
     - name: copy index.html to 404.html
