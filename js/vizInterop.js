@@ -16,7 +16,7 @@
 }
 
 function appendError(errorMessage) {
-
+    cleanOutput();
     var graph = document.querySelector("#output");
 
     cleanGraph(graph);
@@ -70,4 +70,39 @@ function updateVizWithPanZoom(svg) {
 
     return svg
 }
+
+
+function cleanOutput() {
+    let oldOutput = document.querySelector("#output");
+    
+
+    var oldErrors = output.querySelectorAll("error");
+    if (oldOutput) {
+        for(let i = 0; i < oldErrors.length; i++) {
+            oldOutput.removeChild(oldErrors[i]);
+        }
+    }
+
+
+    var oldMessages = output.querySelectorAll("message");
+    if (oldOutput) {
+        for(let i = 0; i < oldMessages.length; i++) {
+            oldOutput.removeChild(oldMessages[i]);
+        }
+    }
+}
+
+function appendMessage(message) {
+    cleanOutput();
+    var graph = document.querySelector("#output");
+
+    cleanGraph(graph);
+
+    var newMessage = document.createElement("message");
+    newMessage.innerHTML = message;
+
+    graph.appendChild(newMessage);
+
+}
+
 
