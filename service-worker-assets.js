@@ -93,7 +93,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-M0ms2n6IthjC0CmKCrukrjEw2RhETtUU4DaCt8ov4H4=",
+      "hash": "sha256-1QEsOabfTqUnMUncZcS9PoqU2vQYkCi2NcKrEtLiQv4=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -101,15 +101,15 @@
       "url": "_framework\/BlazorDialog.dll"
     },
     {
-      "hash": "sha256-u2K8ba13nC12HRIxmet79um6tRp+DDPNmQkBzYA0Rlg=",
+      "hash": "sha256-JI4wFPbShYo6W\/LI5LKWVANz6zdu\/wI0wB6PoJBL01A=",
       "url": "_framework\/BlazorVizView.dll"
     },
     {
-      "hash": "sha256-2\/3WOXPEGzVqxfuvrA0EXGOUfub\/QfDrhIGcC9Nm7OI=",
+      "hash": "sha256-nyaW\/lxZ9odSiCfCZ\/XYVBTSHdRWGmnOUPSThODjLm8=",
       "url": "_framework\/csly-cli-api.dll"
     },
     {
-      "hash": "sha256-iZcwmClLpYuPfNlUDg5lqc4mMT6VNXcmWAlO2BdED1Y=",
+      "hash": "sha256-ZMuLSsgYlxoI3kAsoRFIv\/hkXEBJXH8yxgbhDrfKHtk=",
       "url": "_framework\/csly-cli-builder.dll"
     },
     {
@@ -573,5 +573,5 @@
       "url": "_content\/BlazorDialog\/styles.min.css"
     }
   ],
-  "version": "d4yaCW2n"
+  "version": "x7EZhGx+"
 };
