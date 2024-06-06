@@ -12,7 +12,7 @@ genericLexer MinimalXmlLexer;
 [Sugar] OPEN_PI : "<?";
 
 [Mode]
-
+[MultiLineComment] COMMENT : "<!--" "-->";
 
 [Mode("tag")]
 [Mode("pi")]
@@ -40,7 +40,7 @@ genericLexer MinimalXmlLexer;
 
 parser MinimalXmlParser;
 
-document : misc* element misc*;
+-> document : misc* element misc*;
 element : OPEN[d] ID attributes SLASH[d] CLOSE[d];
 opentag : OPEN[d] ID attributes CLOSE[d];
 closetag : OPEN[d] SLASH[d] ID CLOSE[d];
