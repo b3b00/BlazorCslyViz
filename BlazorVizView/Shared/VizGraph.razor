@@ -1,5 +1,6 @@
 ﻿@using System.IO.Compression
 @using System.Text
+@using SharpFileSystem.FileSystems
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavManager
 @inject IBlazorDialogService dialogService
@@ -13,6 +14,14 @@
 
 
     <div>
+
+        <select class="form-control d-flex" @onchange="SelectSample">
+            @foreach (var template in GetSamples())
+            {
+            <option value=@template>@template</option>
+            }
+        </select>
+        
 
         <label for="grammarFile" class="input-label">Importer un fichier grammaire</label>
         <InputFile id="grammarFile" OnChange="LoadGrammar"/>
@@ -292,6 +301,67 @@ parser ExprParser;
     public async Task AppendMessage(string message)
     {
         await JSRuntime.InvokeAsync<string>("appendMessage", message);
+    }
+
+    
+
+
+    private Dictionary<string, string> SamplesGrammars = new Dictionary<string, string>();
+    
+    private Dictionary<string, string> SamplesSources = new Dictionary<string, string>();
+
+    private Dictionary<string, string> Samples = new Dictionary<string, string>()
+    {
+        { "Expressions", "expression.txt" },
+        { "XML", "xml.txt" },
+        { "JSON", "json.txt" },
+        { "simple template", "template.txt" },
+        { "While language", "while.txt" },
+        { "indented While language", "indented-while.txt" },
+    };
+    public List<string> GetSamples()
+    {
+        return Samples.Keys.ToList();
+    }
+
+    public async Task<string> GetSampleGrammar(string sampleName)
+    {
+        string sampleGrammar = "";
+        if (!SamplesGrammars.TryGetValue(sampleName, out sampleGrammar))
+        {
+            if (Samples.TryGetValue(sampleName, out string path ))
+            {
+                var fs = new EmbeddedResourceFileSystem(GetType().Assembly);
+                sampleGrammar = fs.ReadAllText($"/samples/grammar/{path}");
+                SamplesGrammars[sampleName] = sampleGrammar;
+            }
+        }
+
+        return sampleGrammar;
+    }
+    
+    public async Task<string> getSampleSource(string sampleName)
+    {
+        string sampleSource = "";
+        if (!SamplesSources.TryGetValue(sampleName, out sampleSource))
+        {
+            
+            if (Samples.TryGetValue(sampleName, out string path ))
+            {
+                var fs = new EmbeddedResourceFileSystem(GetType().Assembly);
+                sampleSource = fs.ReadAllText($"/samples/source/{path}");
+                SamplesSources[sampleName] = sampleSource;
+            }
+        }
+
+        return sampleSource;
+    }
+
+    public async void SelectSample(ChangeEventArgs e)
+    {
+        this.grammar = await GetSampleGrammar(e.Value?.ToString() ?? "");
+        this.source = await getSampleSource(e.Value?.ToString() ?? "");
+        StateHasChanged();
     }
 
 }
