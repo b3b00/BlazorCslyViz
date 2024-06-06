@@ -81,7 +81,7 @@ parser IndentedWhileParserGeneric;
 [Right 50] EQUALS;
 [Right 50] DIFFERENT;
 [Right 10] CONCAT;
-program: sequence;
+-> program: sequence;
 block : INDENT[d] sequence UINDENT[d];
 statement : block;
 sequence: statement*;
