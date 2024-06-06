@@ -76,6 +76,7 @@ genericLexer IndentedWhileTokenGeneric;
 parser IndentedWhileParserGeneric;
 
 [UseMemoization]
+[AutoCloseIndentations]
 [Right 50] LESSER;
 [Right 50] GREATER;
 [Right 50] EQUALS;
