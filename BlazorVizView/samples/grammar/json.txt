@@ -7,28 +7,28 @@ genericLexer JsonTokenGeneric;
 
 [Int] INT;
 
-[KeyWord] BOOLEAN : "0";
+[KeyWord] BOOLEAN : "true" "false";
 
-[Sugar] ACCG : "0";
+[Sugar] ACCG : "{";
 
-[Sugar] ACCD : "0";
+[Sugar] ACCD : "}";
 
-[Sugar] CROG : "0";
+[Sugar] CROG : "[";
 
-[Sugar] CROD : "0";
+[Sugar] CROD : "]";
 
-[Sugar] COMMA : "0";
+[Sugar] COMMA : ",";
 
-[Sugar] COLON : "0";
+[Sugar] COLON : ":";
 
-[KeyWord] NULL : "0";
+[KeyWord] NULL : "null";
 
 
 
 parser EbnfJsonGenericParser;
 
 [BroadenTokenWindow]
-root : value;
+-> root : value;
 value : STRING;
 value : INT;
 value : DOUBLE;

@@ -21,10 +21,13 @@ genericLexer SimpleExpressionToken;
 
 [Sugar] RPAREN : ")";
 
+[Sugar] FACTORIAL : "!";
+
 
 
 parser SimpleExpressionParser;
 
+-> root : SimpleExpressionParser_expressions;
 [Right 10] PLUS;
 [Left 10] MINUS;
 [Right 50] TIMES;
