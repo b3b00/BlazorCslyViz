@@ -17,7 +17,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.0" PrivateAssets="all" />
 
     <PackageReference Include="sly" Version="3.1.6"/>
-    <PackageReference Include="csly-cli-api" Version="1.2.9"/>
+    <PackageReference Include="csly-cli-api" Version="1.3.2"/>
 
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2"/>
     <PackageReference Include="System.Collections.Immutable" Version="8.0.0"/>
@@ -33,6 +33,21 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="samples\expression.txt" />
+    <EmbeddedResource Include="samples\expression.txt" />
+    <None Remove="samples\indented-while.txt" />
+    <EmbeddedResource Include="samples\indented-while.txt" />
+    <None Remove="samples\json.txt" />
+    <EmbeddedResource Include="samples\json.txt" />
+    <None Remove="samples\template.txt" />
+    <EmbeddedResource Include="samples\template.txt" />
+    <None Remove="samples\while.txt" />
+    <EmbeddedResource Include="samples\while.txt" />
+    <None Remove="samples\xml.txt" />
+    <EmbeddedResource Include="samples\xml.txt" />
   </ItemGroup>
 
 <!--  <ItemGroup>-->
