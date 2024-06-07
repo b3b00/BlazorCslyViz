@@ -1,6 +1,5 @@
 ﻿@using System.IO.Compression
 @using System.Text
-@using SharpFileSystem.FileSystems
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavManager
 @inject IBlazorDialogService dialogService
@@ -35,19 +34,58 @@
             </div>
 
         </div>
-        <button id="submitButton" @onclick="Compile" class="btn btn-primary">
+        <button id="submitButton" @onclick="Compile" class="btn btn-primary" disabled="@ActionDisabled">
             Compile
         </button>
-        <button id="submitButton" @onclick="Generate" class="btn btn-primary">
+        <button id="submitButton" @onclick="() => { HideGenerate = false; HideExtract = true; }" class="btn btn-primary" disabled="@ActionDisabled">
             Generate...
         </button>
-        <button id="extractButton" @onclick="ExtractGrammar" class="btn btn-primary">
+        <button id="extractButton" @onclick="() => { HideExtract = false; HideGenerate = true; }" class="btn btn-primary" >
             Extract grammar...
         </button>
         <button id="extractButton" @onclick="CleanOutput" class="btn btn-primary">
             Clean
         </button>
- </div>
+
+        <div id="generate" hidden="@HideGenerate">
+            <DialogHeader ShowClose="true">
+                <h4>Source generation options</h4>
+            </DialogHeader>
+            <DialogBody>
+                <label for="ns">NameSpace</label>
+                <input type="text" @bind="nameSpace"/>
+                <br/>
+                <label for="type">Parser output type</label>
+                <input type="text" id="type" @bind="outputType"/>
+            </DialogBody>
+            <DialogFooter>
+                <button type="button" class="btn btn-primary" @onclick="() => { HideGenerate = true; Generate();}">ok</button>
+                <button type="button" class="btn btn-secondary" @onclick="() => { HideGenerate = true;}" >Cancel</button>
+            </DialogFooter>
+        </div>
+        
+        <div hidden="@HideExtract">
+            <DialogHeader ShowClose="true">
+                <h4>Grammar extraction</h4>
+            </DialogHeader>
+            <DialogBody>
+
+                <label for="lexerFile" class="input-label">Lexer</label>
+                <InputFile id="lexerFile" OnChange="LoadLexer"/>
+                <br/>
+                <label for="parserFile" class="input-label">Parser</label>
+                <InputFile id="parserFile" OnChange="LoadParser"/>
+
+
+            </DialogBody>
+            <DialogFooter>
+                <button type="button" class="btn btn-primary" @onclick="() => { HideExtract = true; ExtractGrammar();}">Yes</button>
+                <button type="button" class="btn btn-secondary" @onclick="() => { HideExtract = true;}">No</button>
+            </DialogFooter>
+            
+        </div>
+        
+    </div>
 
 
     <div id="graph">
@@ -72,6 +110,21 @@
 
     [Parameter] public string? Title { get; set; }
 
+    private string nameSpace;
+
+    private string outputType;
+
+    private bool HideGenerate = true;
+
+
+    private string lexerSource = "";
+
+    private string parserSource = "";
+    
+    private bool HideExtract = true;
+
+    private bool ActionDisabled => string.IsNullOrEmpty(cslyContext.Grammar);
+    
 
     private string Grammar
     {
@@ -103,20 +156,7 @@
 
     private async void ExtractGrammar()
     {
-        bool isCentered = true;
-        DialogSize size;
-        DialogAnimation animation = DialogAnimation.SlideDown;
-
-        var dialogResult = await dialogService.ShowComponentAsDialog<ExtractDialogResult>(new ComponentAsDialogOptions(typeof(ExtractDialog))
-        {
-            Animation = DialogAnimation.SlideDown,
-            Size = DialogSize.Normal,
-            Centered = true,
-            Parameters = new()
-        });
-        if (dialogResult != null && dialogResult.Ok)
-        {
-            var extractedGrammar = CslyProcessor.ExtractGrammar(dialogResult.Parser, dialogResult.Lexer);
+            var extractedGrammar = CslyProcessor.ExtractGrammar(parserSource, lexerSource);
             if (extractedGrammar.IsOK && !string.IsNullOrEmpty(extractedGrammar.Result))
             {
                 cslyContext.Grammar = extractedGrammar.Result;
@@ -126,26 +166,14 @@
             {
                 errors.AddRange(extractedGrammar.Errors);
             }
-        }
+        
     }
 
     private async void Generate()
     {
-        bool isCentered = true;
-        DialogSize size;
-        DialogAnimation animation = DialogAnimation.SlideDown;
-
-        var dialogResult = await dialogService.ShowComponentAsDialog<GenerateDialogResult>(new ComponentAsDialogOptions(typeof(GenerateDialog))
-        {
-            Animation = DialogAnimation.SlideDown,
-            Size = DialogSize.Normal,
-            Centered = true,
-            Parameters = new()
-        });
-        if (dialogResult != null && dialogResult.Ok)
-        {
-            Console.WriteLine($"Generate => ns:{dialogResult.NameSpace}, type:{dialogResult.OutputType}");
-            var sources = CslyProcessor.GenerateParser(cslyContext.Grammar, dialogResult.NameSpace, dialogResult.OutputType);
+       
+            Console.WriteLine($"Generate => ns:{nameSpace}, type:{outputType}");
+            var sources = CslyProcessor.GenerateParser(cslyContext.Grammar, nameSpace, outputType);
             if (sources.IsOK)
             {
                 byte[] compressedBytes;
@@ -203,11 +231,6 @@
                 errors.Clear();
                 errors.AddRange(sources.Errors);
             }
-        }
-        else
-        {
-            Console.WriteLine("do not generate");
-        }
     }
 
   
@@ -252,4 +275,20 @@
         StateHasChanged();
     }
 
+    
+    private async Task LoadParser(InputFileChangeEventArgs e)
+    {
+        
+        var content = 
+            await new StreamReader(e.File.OpenReadStream()).ReadToEndAsync();
+        parserSource = content;
+    }
+    
+    private async Task LoadLexer(InputFileChangeEventArgs e)
+    {
+        
+        var content = 
+            await new StreamReader(e.File.OpenReadStream()).ReadToEndAsync();
+        lexerSource = content;
+    }
 }
