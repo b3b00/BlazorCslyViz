@@ -53,4 +53,4 @@ async function onFetch(event) {
 
     return cachedResponse || fetch(event.request);
 }
-/* Manifest version: okia+qLM */
+/* Manifest version: +Y78EeF7 */
