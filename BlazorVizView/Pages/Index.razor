@@ -1,13 +1,12 @@
 ﻿@inject IJSRuntime JSRuntime
 @inject NavigationManager NavManager
-
+@inject ICslyContext cslycontext;
 @using Microsoft.JSInterop
 
 @page "/"
 
 
-<PageTitle>Graphviz visualisation for C#</PageTitle>
-<VizGraph></VizGraph>
+<GrammarComponent></GrammarComponent> <!-- TODO -->
 
 
 @code{
@@ -19,10 +18,9 @@
     public string JsVersionDebug { get => random.NextInt64().ToString(); }
 
 
-    public async Task VizRender(string ast)
-    {
-         await JSRuntime.InvokeAsync<bool>("Render",ast);     
-    }
+    
+    
+
 
 
 }
