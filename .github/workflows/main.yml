@@ -22,21 +22,24 @@ jobs:
         include-prerelease: true
 
     # publishes Blazor project to the release-folderl
+
+    - name: Change base-tag in app.razor from / to BlazorCslyViz
+      run: sed -i 's/<base href="\/" \/>/<base href="\/BlazorCslyViz\/" \/>/g' app.razor
+      
+    - name: Publish .NET Core Project
+      run: dotnet publish BlazorVizView/BlazorVizView.csproj -c Release -o release 
+    
+    # changes the base-tag in index.html from '/' to 'BlazorCslyViz' to match GitHub Pages repository subdirectory
     - name: Change base-tag in index.html from / to BlazorCslyViz
       run: sed -i 's/<base href="\/" \/>/<base href="\/BlazorCslyViz\/" \/>/g' release/wwwroot/index.htm
     - name: Change base-tag in app.razor from / to BlazorCslyViz
-      run: sed -i 's/<base href="\/" \/>/<base href="\/BlazorCslyViz\/" \/>/g' release/wwwroot/index.html
+      run: sed -i 's/<base href="\/" \/>/<base href="\/BlazorCslyViz\/" \/>/g' release/app.razor
     - name: Change manifest url in index.html from / to /BlazorCslyViz
       run: sed -i 's/<link href="manifest.webmanifest" rel="manifest" \/>/<link href="\/BlazorCslyViz\/manifest.webmanifest" rel="manifest" \/>/g' release/wwwroot/index.html
     - name: Change service-worker url in index.html from / to /BlazorCslyViz
       run: sed -i 's/\/service-worker.js/\/BlazorCslyViz\/service-worker.js/g' release/wwwroot/index.html  
     - name: Change favicon url in index.html from / to /BlazorCslyViz
       run: sed -i 's/href="favicon.png"/href="\/BlazorCslyViz\/favicon.png"/g' release/wwwroot/index.html 
-    - name: Publish .NET Core Project
-      run: dotnet publish BlazorVizView/BlazorVizView.csproj -c Release -o release 
-    
-    # changes the base-tag in index.html from '/' to 'BlazorCslyViz' to match GitHub Pages repository subdirectory
-    
     
     # copy index.html to 404.html to serve the same file when a file is not found
     - name: copy index.html to 404.html
