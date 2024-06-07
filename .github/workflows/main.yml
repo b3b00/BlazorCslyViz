@@ -23,7 +23,8 @@ jobs:
 
     # publishes Blazor project to the release-folderl
     - name: Change base-tag in index.html from / to BlazorCslyViz
-      run: sed -i 's/<base href="\/" \/>/<base href="\/BlazorCslyViz\/" \/>/g' release/wwwroot/index.htm- name: Change base-tag in app.razor from / to BlazorCslyViz
+      run: sed -i 's/<base href="\/" \/>/<base href="\/BlazorCslyViz\/" \/>/g' release/wwwroot/index.htm
+    - name: Change base-tag in app.razor from / to BlazorCslyViz
       run: sed -i 's/<base href="\/" \/>/<base href="\/BlazorCslyViz\/" \/>/g' release/wwwroot/index.html
     - name: Change manifest url in index.html from / to /BlazorCslyViz
       run: sed -i 's/<link href="manifest.webmanifest" rel="manifest" \/>/<link href="\/BlazorCslyViz\/manifest.webmanifest" rel="manifest" \/>/g' release/wwwroot/index.html
