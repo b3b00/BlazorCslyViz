@@ -1,13 +1,13 @@
 ﻿@inject IJSRuntime JSRuntime
 @inject NavigationManager NavManager
-
+@inject ICslyContext cslycontext;
 @using Microsoft.JSInterop
 
 @page "/"
 
 
 <PageTitle>Graphviz visualisation for C#</PageTitle>
-<VizGraph></VizGraph>
+<VizGraph></VizGraph> <!-- TODO -->
 
 
 @code{

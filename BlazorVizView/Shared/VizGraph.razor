@@ -5,6 +5,7 @@
 @inject NavigationManager NavManager
 @inject IBlazorDialogService dialogService
 @inject IJSUnmarshalledRuntime JSUnmarshalledRuntime
+@inject ICslyContext cslyContext;
 
 
 <div>
@@ -16,7 +17,7 @@
     <div>
 
         <select class="form-control d-flex" @onchange="SelectSample">
-            @foreach (var template in GetSamples())
+            @foreach (var template in cslyContext.GetSamples())
             {
             <option value=@template>@template</option>
             }
@@ -30,27 +31,27 @@
         <div class="input" style="display: flex; flex-direction: row">
 
             <div style="flex-grow:1">
-                <textarea style="flex-grow: 1" id="grammarBox" maxlength="2000" spellcheck="false" @bind="grammar" />
+                <textarea style="flex-grow: 1" id="grammarBox" maxlength="2000" spellcheck="false" @bind="cslyContext.Grammar" />
             </div>
 
             <div style="flex-grow:1">
-                <textarea style="flex-grow: 1" i d="inputBox" maxlength="2000" spellcheck="false" @bind="source" />
+                <textarea style="flex-grow: 1" i d="inputBox" maxlength="2000" spellcheck="false" @bind="cslyContext.Source" />
             </div>
 
         </div>
-        <button id="submitButton" @onclick="Render">
+        <button id="submitButton" @onclick="Render" class="btn btn-primary">
             Render
         </button>
-        <button id="submitButton" @onclick="Compile">
+        <button id="submitButton" @onclick="Compile" class="btn btn-primary">
             Compile
         </button>
-        <button id="submitButton" @onclick="Generate">
+        <button id="submitButton" @onclick="Generate" class="btn btn-primary">
             Generate...
         </button>
-        <button id="submitButton" @onclick="GetJson">
+        <button id="submitButton" @onclick="GetJson" class="btn btn-primary">
             Download JSON...
         </button>
-        <button id="extractButton" @onclick="ExtractGrammar">
+        <button id="extractButton" @onclick="ExtractGrammar" class="btn btn-primary">
             Extract grammar...
         </button>
     </div>
@@ -67,41 +68,7 @@
 
     [Parameter] public string? Title { get; set; }
 
-    string source = @"1 / 2 / 3 + 4 + 3.14";
-
-    string grammar = @"
-genericLexer ExprLexer;
-
-[Int] I;
-[Double] D;
-
-
-[Sugar] PLUS : ""+"";
-[Sugar] MINUS : ""-"";
-[Sugar] TIMES : ""*"";
-[Sugar] DIVIDE : ""/"";
-
-[Sugar] LPAREN : ""("";
-[Sugar] RPAREN : "")"";
-
-
-parser ExprParser;
-
-
--> root:  ExprParser_expressions ;
-
-
-       
-[Right 10] PLUS;
-[Left 10] MINUS;
-[Right 50] TIMES;
-[Left 50]DIVIDE;
-[Prefix 100] MINUS;
-
-[Operand] operand : [I|D];
-[Operand] operand : LPAREN ExprParser_expressions RPAREN;
-
-";
+    
 
     private string dot;
 
@@ -113,7 +80,7 @@ parser ExprParser;
     {
         var content =
             await new StreamReader(e.File.OpenReadStream()).ReadToEndAsync();
-        grammar = content;
+        cslyContext.Grammar = content;
         StateHasChanged();
     }
 
@@ -121,14 +88,14 @@ parser ExprParser;
     {
         var content =
             await new StreamReader(e.File.OpenReadStream()).ReadToEndAsync();
-        source = content;
+        cslyContext.Source = content;
         StateHasChanged();
     }
 
 
     private async void GetJson()
     {
-        var json = CslyProcessor.GetJson(grammar, source);
+        var json = CslyProcessor.GetJson(cslyContext.Grammar, cslyContext.Source);
         if (json.IsOK)
         {
             string fileName = "source.json";
@@ -165,7 +132,7 @@ parser ExprParser;
             var extractedGrammar = CslyProcessor.ExtractGrammar(dialogResult.Parser, dialogResult.Lexer);
             if (extractedGrammar.IsOK && !string.IsNullOrEmpty(extractedGrammar.Result))
             {
-                this.grammar = extractedGrammar.Result;
+                cslyContext.Grammar = extractedGrammar.Result;
                 StateHasChanged();
             }
         }
@@ -187,7 +154,7 @@ parser ExprParser;
         if (dialogResult != null && dialogResult.Ok)
         {
             Console.WriteLine($"Generate => ns:{dialogResult.NameSpace}, type:{dialogResult.OutputType}");
-            var sources = CslyProcessor.GenerateParser(grammar, dialogResult.NameSpace, dialogResult.OutputType);
+            var sources = CslyProcessor.GenerateParser(cslyContext.Grammar, dialogResult.NameSpace, dialogResult.OutputType);
             if (sources.IsOK)
             {
                 byte[] compressedBytes;
@@ -257,7 +224,9 @@ parser ExprParser;
 
     private async void Render()
     {
-        var dotresult = CslyProcessor.GetDot(grammar, source);
+;
+        
+        var dotresult = CslyProcessor.GetDot(cslyContext.Grammar, cslyContext.Source);
         if (dotresult.IsOK)
         {
             dot = dotresult.Result;
@@ -274,7 +243,7 @@ parser ExprParser;
     
     private async void Compile()
     {
-        var compileResult = CslyProcessor.Compile(grammar);
+        var compileResult = CslyProcessor.Compile(cslyContext.Grammar);
         if (compileResult.IsOK)
         {
             await AppendMessage("Model is OK");
@@ -305,62 +274,13 @@ parser ExprParser;
 
     
 
-
-    private Dictionary<string, string> SamplesGrammars = new Dictionary<string, string>();
     
-    private Dictionary<string, string> SamplesSources = new Dictionary<string, string>();
-
-    private Dictionary<string, string> Samples = new Dictionary<string, string>()
-    {
-        { "Expressions", "expression.txt" },
-        { "XML", "xml.txt" },
-        { "JSON", "json.txt" },
-        { "simple template", "template.txt" },
-        { "While language", "while.txt" },
-        { "indented While language", "indented-while.txt" },
-    };
-    public List<string> GetSamples()
-    {
-        return Samples.Keys.ToList();
-    }
-
-    public async Task<string> GetSampleGrammar(string sampleName)
-    {
-        string sampleGrammar = "";
-        if (!SamplesGrammars.TryGetValue(sampleName, out sampleGrammar))
-        {
-            if (Samples.TryGetValue(sampleName, out string path ))
-            {
-                var fs = new EmbeddedResourceFileSystem(GetType().Assembly);
-                sampleGrammar = fs.ReadAllText($"/samples/grammar/{path}");
-                SamplesGrammars[sampleName] = sampleGrammar;
-            }
-        }
-
-        return sampleGrammar;
-    }
     
-    public async Task<string> getSampleSource(string sampleName)
-    {
-        string sampleSource = "";
-        if (!SamplesSources.TryGetValue(sampleName, out sampleSource))
-        {
-            
-            if (Samples.TryGetValue(sampleName, out string path ))
-            {
-                var fs = new EmbeddedResourceFileSystem(GetType().Assembly);
-                sampleSource = fs.ReadAllText($"/samples/source/{path}");
-                SamplesSources[sampleName] = sampleSource;
-            }
-        }
-
-        return sampleSource;
-    }
+    
 
     public async void SelectSample(ChangeEventArgs e)
     {
-        this.grammar = await GetSampleGrammar(e.Value?.ToString() ?? "");
-        this.source = await getSampleSource(e.Value?.ToString() ?? "");
+        cslyContext.SetSample(e.Value?.ToString() ?? "");
         StateHasChanged();
     }
 
