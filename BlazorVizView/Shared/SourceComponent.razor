@@ -27,12 +27,12 @@
             </div>
 
         </div>
-        <button id="submitButton" @onclick="Compile" class="btn btn-primary">
+        <button id="submitButton" @onclick="Compile" class="btn btn-primary" disabled="@ActionDisabled">
             Compile
         </button>
         
       
-        <button id="submitButton" @onclick="GetJson" class="btn btn-primary">
+        <button id="submitButton" @onclick="GetJson" class="btn btn-primary" disabled="@ActionDisabled">
             Download JSON...
         </button>
         <button id="extractButton" @onclick="CleanOutput" class="btn btn-primary">
@@ -64,7 +64,7 @@
 
     [Parameter] public string? Title { get; set; }
 
-    
+    private bool ActionDisabled => string.IsNullOrEmpty(cslyContext.Grammar) || string.IsNullOrEmpty(cslyContext.Source);
 
     private string dot;
 

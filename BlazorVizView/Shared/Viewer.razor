@@ -18,7 +18,7 @@
 
     
   
-        <button id="submitButton" @onclick="Render" class="btn btn-primary">
+        <button id="submitButton" @onclick="Render" class="btn btn-primary" disabled="@ActionDisabled">
             Render
         </button>
 
@@ -50,7 +50,7 @@
 
     [Parameter] public string? Title { get; set; }
 
-    
+    private bool ActionDisabled => string.IsNullOrEmpty(cslyContext.Grammar) || string.IsNullOrEmpty(cslyContext.Source);
 
     private string dot;
 
