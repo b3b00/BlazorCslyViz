@@ -26,40 +26,44 @@
 
         <label for="grammarFile" class="input-label">Importer un fichier grammaire</label>
         <InputFile id="grammarFile" OnChange="LoadGrammar"/>
-        <label for="inputFile" class="input-label">Importer un fichier source</label>
-        <InputFile id="inputFile" OnChange="LoadGrammar"/>
-        <div class="input" style="display: flex; flex-direction: row">
+        
+        <div class="input"> <!--style="display: flex; flex-direction: row">-->
 
             <div style="flex-grow:1">
-                <textarea style="flex-grow: 1" id="grammarBox" maxlength="2000" spellcheck="false" @bind="cslyContext.Grammar" />
-            </div>
-
-            <div style="flex-grow:1">
-                <textarea style="flex-grow: 1" i d="inputBox" maxlength="2000" spellcheck="false" @bind="cslyContext.Source" />
+                <textarea style="flex-grow: 1" i d="inputBox" maxlength="2000" spellcheck="false" @bind="Grammar"  />
+<!--@bind="cslyContext.Grammar" @bind:event="onchange" @bind:after="CleanOutput"/>-->
             </div>
 
         </div>
-        <button id="submitButton" @onclick="Render" class="btn btn-primary">
-            Render
-        </button>
         <button id="submitButton" @onclick="Compile" class="btn btn-primary">
             Compile
         </button>
         <button id="submitButton" @onclick="Generate" class="btn btn-primary">
             Generate...
         </button>
-        <button id="submitButton" @onclick="GetJson" class="btn btn-primary">
-            Download JSON...
-        </button>
         <button id="extractButton" @onclick="ExtractGrammar" class="btn btn-primary">
             Extract grammar...
         </button>
-    </div>
+        <button id="extractButton" @onclick="CleanOutput" class="btn btn-primary">
+            Clean
+        </button>
+ </div>
 
 
     <div id="graph">
         <div id="output">
-            <div id="error"></div>
+            <div id="error">
+                @foreach (var message in messages)
+                {
+                    <p style="color:black; background-color: lawngreen ">@message</p>
+                }
+                
+                @foreach (var error in errors)
+                {
+                    <p style="color:black; background-color: darksalmon ">@error</p>
+                }
+                
+            </div>
         </div>
     </div>
 </div>
@@ -68,10 +72,17 @@
 
     [Parameter] public string? Title { get; set; }
 
+
+    private string Grammar
+    {
+        get => cslyContext.Grammar;
+        set
+        {
+            cslyContext.Grammar = value;
+            CleanOutput();
+        }
+    }
     
-
-    private string dot;
-
     protected override async void OnInitialized()
     {
     }
@@ -84,34 +95,10 @@
         StateHasChanged();
     }
 
-    private async Task LoadSource(InputFileChangeEventArgs e)
-    {
-        var content =
-            await new StreamReader(e.File.OpenReadStream()).ReadToEndAsync();
-        cslyContext.Source = content;
-        StateHasChanged();
-    }
 
 
-    private async void GetJson()
-    {
-        var json = CslyProcessor.GetJson(cslyContext.Grammar, cslyContext.Source);
-        if (json.IsOK)
-        {
-            string fileName = "source.json";
-            string contentType = "text/json";
 
-            // Check if the IJSRuntime is the WebAssembly implementation of the JSRuntime
-            if (JSUnmarshalledRuntime is IJSUnmarshalledRuntime webAssemblyJSRuntime)
-            {
-                webAssemblyJSRuntime.InvokeUnmarshalled<string, string, byte[], bool>("BlazorDownloadFileFast", fileName, contentType, UTF8Encoding.UTF8.GetBytes(json.Result));
-                return;
-            }
-
-            // Fall back to the slow method if not in WebAssembly
-            await JSRuntime.InvokeVoidAsync("BlazorDownloadFile", fileName, contentType, UTF8Encoding.UTF8.GetBytes(json.Result));
-        }
-    }
+   
 
 
     private async void ExtractGrammar()
@@ -134,6 +121,10 @@
             {
                 cslyContext.Grammar = extractedGrammar.Result;
                 StateHasChanged();
+            }
+            else
+            {
+                errors.AddRange(extractedGrammar.Errors);
             }
         }
     }
@@ -209,11 +200,8 @@
             }
             else
             {
-                foreach (var error in sources.Errors)
-                {
-                    Console.WriteLine(error);
-                    await AppendError(error);
-                }
+                errors.Clear();
+                errors.AddRange(sources.Errors);
             }
         }
         else
@@ -222,65 +210,45 @@
         }
     }
 
-    private async void Render()
-    {
-;
-        
-        var dotresult = CslyProcessor.GetDot(cslyContext.Grammar, cslyContext.Source);
-        if (dotresult.IsOK)
-        {
-            dot = dotresult.Result;
-            await VizRender(dot);
-        }
-        else
-        {
-            foreach (var error in dotresult.Errors)
-            {
-                AppendError(error);
-            }
-        }
-    }
+  
     
     private async void Compile()
     {
+        messages.Clear();
+        errors.Clear();
         var compileResult = CslyProcessor.Compile(cslyContext.Grammar);
         if (compileResult.IsOK)
         {
-            await AppendMessage("Model is OK");
+            messages.Clear();
+            
+            messages.Add("Model is OK");
         }
         else
         {
-            foreach (var error in compileResult.Errors)
-            {
-                await AppendError(error);
-            }
+            errors.Clear();
+            errors.AddRange(compileResult.Errors);
         }
+        StateHasChanged();
     }
 
-    public async Task VizRender(string graph)
-    {
-        await JSRuntime.InvokeAsync<string>("vizRender", graph);
-    }
 
-    public async Task AppendError(string errorMessage)
-    {
-        await JSRuntime.InvokeAsync<string>("appendError", errorMessage);
-    }
-    
-    public async Task AppendMessage(string message)
-    {
-        await JSRuntime.InvokeAsync<string>("appendMessage", message);
-    }
-
-    
-
-    
+    private List<string> messages = new List<string>();
+    private List<string> errors = new List<string>();
     
     
 
     public async void SelectSample(ChangeEventArgs e)
     {
+        errors.Clear();
+        messages.Clear();
         cslyContext.SetSample(e.Value?.ToString() ?? "");
+        StateHasChanged();
+    }
+
+    private void CleanOutput()
+    {
+        errors.Clear();
+        messages.Clear();
         StateHasChanged();
     }
 
