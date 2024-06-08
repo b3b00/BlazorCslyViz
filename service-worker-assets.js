@@ -65,7 +65,7 @@
       "url": "loader.js"
     },
     {
-      "hash": "sha256-+rRUjKHX43Y90PMeMoHQw5ioUAGHEKMFtAPq4xSnHkc=",
+      "hash": "sha256-Jqg+BbI\/OkKQm70pLqVC0HStacfkNwp6\/wu9a5\/MONw=",
       "url": "manifest.webmanifest"
     },
     {
@@ -589,5 +589,5 @@
       "url": "_content\/BlazorDialog\/styles.min.css"
     }
   ],
-  "version": "gdp6elGO"
+  "version": "CpTerGw5"
 };
