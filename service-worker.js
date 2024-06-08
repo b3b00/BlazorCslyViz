@@ -50,7 +50,13 @@ async function onFetch(event) {
         const cache = await caches.open(cacheName);
         cachedResponse = await cache.match(request);
     }
+    if (cachedResponse) {
+        console.log(`serve ${event.request.url} from cache`)
+    }
+    else {
+        console.log(`request ${event.request.url} from server`); 
+    }
 
     return cachedResponse || fetch(event.request);
 }
-/* Manifest version: cLFtQd40 */
+/* Manifest version: gdp6elGO */
