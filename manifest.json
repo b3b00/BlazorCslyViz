@@ -1,10 +1,11 @@
 {
   "name": "CSLY viewer",
   "short_name": "CSLY",
-  "start_url": "./",
+  "start_url": "/BlazorCslyViz/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#03173d",
+  "orientation": "portrait-primary"
   "icons": [
     {
       "src": "icon-512.png",
